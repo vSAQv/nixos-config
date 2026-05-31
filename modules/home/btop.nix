@@ -1,14 +1,14 @@
-{ pkgs, ... }: 
-{
+{pkgs, ...}: {
   programs.btop = {
     enable = true;
-    
+
     settings = {
-      color_theme = "TTY";
+      color_theme = "gruvbox_material_dark";
       theme_background = false;
       update_ms = 500;
+      vim_keys = true;
     };
   };
 
-  home.packages = (with pkgs; [ nvtopPackages.intel ]);
+  home.packages = with pkgs; [nvtopPackages.intel];
 }
