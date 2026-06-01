@@ -1,27 +1,40 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   hardware = {
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-
+        intel-media-driver
+        intel-vaapi-driver
       ];
     };
-  };
-  hardware.nvidia-container-toolkit.enable = true;
-  hardware.enableRedistributableFirmware = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.open = true;
-  hardware.nvidia = {
 
-    prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
+    nvidia-container-toolkit.enable = true;
+    enableRedistributableFirmware = true;
+
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      open = true;
+      modesetting.enable = true;
+      nvidiaSettings = true;
+
+      powerManagement = {
+        enable = true;
+        finegrained = true;
+      };
+
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
     };
-
-    modesetting.enable = true;
-    nvidiaSettings = true;
-
   };
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth

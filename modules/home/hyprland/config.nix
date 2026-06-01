@@ -1,11 +1,9 @@
-{ ... }:
-{
+{...}: {
   wayland.windowManager.hyprland = {
     settings = {
-
       "$mainMod" = "SUPER";
-      
-      exec-once =[
+
+      exec-once = [
         "systemctl --user import-environment &"
         "hash dbus-update-activation-environment 2>/dev/null &"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
@@ -77,7 +75,7 @@
 
       decoration = {
         rounding = 0;
-        
+
         blur = {
           enabled = true;
           size = 2;
@@ -102,14 +100,14 @@
       animations = {
         enabled = true;
 
-        bezier =[
+        bezier = [
           "fluent_decel, 0, 0.2, 0.4, 1"
           "easeOutCirc, 0, 0.55, 0.45, 1"
           "easeOutCubic, 0.33, 1, 0.68, 1"
           "easeinoutsine, 0.37, 0, 0.63, 1"
         ];
 
-        animation =[
+        animation = [
           "windowsIn, 1, 4, easeOutCubic, popin 20%"
           "windowsOut, 1, 4, fluent_decel, popin 80%"
           "windowsMove, 1, 2, easeinoutsine, slide"
@@ -124,7 +122,7 @@
         ];
       };
 
-      bind =[
+      bind = [
         "$mainMod, F1, exec, show-keybinds"
         "$mainMod, Return, exec, kitty"
         "ALT, Return, exec, kitty --title float_kitty"
@@ -142,8 +140,8 @@
         "$mainMod SHIFT, Escape, exec, power-menu"
         "$mainMod, P, pseudo,"
         "$mainMod, J, togglesplit,"
-        "$mainMod, O, exec, toggle_oppacity"
         "$mainMod, E, exec, nautilus"
+        "$mainMod, O, exec, bash -c 'if [ \"$(powerprofilesctl get)\" = \"performance\" ]; then powerprofilesctl set power-saver && echo 1 | pkexec tee /sys/devices/system/cpu/intel_pstate/no_turbo && notify-send \"Power Profile\" \"Power Saver (Turbo OFF)\"; else powerprofilesctl set performance && echo 0 | pkexec tee /sys/devices/system/cpu/intel_pstate/no_turbo && notify-send \"Power Profile\" \"Performance (Turbo ON)\"; fi'"
         "$mainMod, T, exec, AyuGram"
         "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, C ,exec, hyprpicker -a"
@@ -206,26 +204,26 @@
         "$mainMod, V, exec, cliphist list | rofi -dmenu -theme-str 'window {width: 50%;}' | cliphist decode | wl-copy"
       ];
 
-      bindl =[
+      bindl = [
         ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
         ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
         "$mainMod, XF86MonBrightnessUp, exec, brightnessctl set 100%+"
         "$mainMod, XF86MonBrightnessDown, exec, brightnessctl set 100%-"
       ];
 
-      binde =[
+      binde = [
         ",XF86AudioRaiseVolume,exec, pamixer -i 2"
         ",XF86AudioLowerVolume,exec, pamixer -d 2"
       ];
 
-      bindm =[
+      bindm = [
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
 
-      windowrule =[
+      windowrule = [
         "border_size 0, match:float 1"
-        
+
         "float 1, match:class ^(qView)$"
         "center 1, match:class ^(qView)$"
         "size 1200 725, match:class ^(qView)$"
@@ -259,7 +257,7 @@
         "opacity 1.0 1.0, match:class (Unity)"
         "opacity 1.0 1.0, match:class (evince)"
         "workspace 5, match:class ^(Spotify)$"
-        
+
         "float 1, match:class ^(zenity)$"
         "center 1, match:class ^(zenity)$"
         "size 850 500, match:class ^(zenity)$"
@@ -287,14 +285,12 @@
         "workspace 2 silent, match:class ^(kitty-ws2)$"
         "workspace 1 silent, match:class ^([Aa]yu[Gg]ram.*)$"
 
-        
         "opacity 0.0 0.0, match:class ^(xwaylandvideobridge)$"
         "no_anim 1, match:class ^(xwaylandvideobridge)$"
         "no_initial_focus 1, match:class ^(xwaylandvideobridge)$"
         "max_size 1 1, match:class ^(xwaylandvideobridge)$"
         "no_blur 1, match:class ^(xwaylandvideobridge)$"
       ];
-
     };
 
     extraConfig = "
