@@ -1,8 +1,13 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  config,
+  inputs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/core
+    inputs.chaotic.nixosModules.default
   ];
 
   environment.systemPackages = with pkgs; [
@@ -55,13 +60,13 @@
   powerManagement.cpuFreqGovernor = "performance";
 
   boot = {
-    kernelModules = [ "acpi_call" ];
-    extraModulePackages =
-      with config.boot.kernelPackages;
+    kernelModules = ["acpi_call"];
+    kernelPackages = pkgs.linuxPackages_cachyos;
+    extraModulePackages = with config.boot.kernelPackages;
       [
         acpi_call
         cpupower
       ]
-      ++ [ pkgs.cpupower-gui ];
+      ++ [pkgs.cpupower-gui];
   };
 }

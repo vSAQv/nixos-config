@@ -5,15 +5,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     antigravity-nix.url = "github:jacopone/antigravity-nix";
-
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
-
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-
     nix-gaming.url = "github:fufexan/nix-gaming";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     hyprland = {
       type = "git";
@@ -28,10 +25,10 @@
 
     nvf.url = "github:NotAShelf/nvf";
 
-    spicetify-nix = {
-      url = "github:gerg-l/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #spicetify-nix = {
+    #  url = "github:gerg-l/spicetify-nix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     hyprmag.url = "github:SIMULATAN/hyprmag";
   };
@@ -39,6 +36,7 @@
   outputs = {
     nixpkgs,
     self,
+    chaotic,
     ...
   } @ inputs: let
     username = "cif";
