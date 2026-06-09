@@ -66,7 +66,7 @@
       pavucontrol # pulseaudio volume controle (GUI)
       qalculate-gtk # calculator
       #soundwireserver # pass audio to android phone
-      thunderbird # mail client
+      #thunderbird # mail client
       vlc # media player
       winetricks # to download windows libraries
       wineWow64Packages.wayland
@@ -78,6 +78,7 @@
       ludusavi # for homelab steam
       #lmms # audio stuff
       #firefox
+      rustdesk
 
       #darktable # photo edit
       #ansel # photo edit
