@@ -32,20 +32,22 @@
         numlock_by_default = true;
         follow_mouse = 1;
         float_switch_override_focus = 0;
-        mouse_refocus = 0;
+        mouse_refocus = true;
         sensitivity = 0;
         touchpad = {
           natural_scroll = true;
         };
       };
 
+      cursor = {
+        warp_on_change_workspace = true;
+      };
+
       general = {
         layout = "dwindle";
         gaps_in = 5;
         gaps_out = 10;
-        border_size = 2;
-        "col.active_border" = "rgb(98971a) rgb(cc241d) 45deg";
-        "col.inactive_border" = "0x00000000";
+        border_size = 0;
       };
 
       misc = {
@@ -78,10 +80,10 @@
 
         blur = {
           enabled = true;
-          size = 2;
-          passes = 2;
+          size = 10;
+          passes = 4;
           brightness = 1;
-          contrast = 1.4;
+          contrast = 1.0;
           ignore_opacity = true;
           noise = 0;
           xray = true;
@@ -91,7 +93,7 @@
           enabled = true;
           ignore_window = true;
           offset = "0 2";
-          range = 20;
+          range = 8;
           render_power = 3;
           color = "rgba(00000055)";
         };
