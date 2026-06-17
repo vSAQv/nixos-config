@@ -3,36 +3,42 @@
   pkgs,
   ...
 }: let
-  # Self-contained Python script to fetch, override Beltelecom NAT routing, and output JSON weather
+  # Self-contained Python script to fetch, handle boot delay, URL-encode locations, and output JSON weather
   weatherScript = pkgs.writeScript "waybar-weather" ''
     #!${pkgs.python3}/bin/python3
     import urllib.request
+    import urllib.parse
     import json
     import sys
+    import time
     from datetime import datetime
 
-    # Get location via ip-api.com
+    # Wait up to 30 seconds for network connection to avoid N/A on boot
+    for _ in range(15):
+        try:
+            with urllib.request.urlopen("http://clients3.google.com/generate_204", timeout=2) as response:
+                if response.getcode() == 204:
+                    break
+        except Exception:
+            time.sleep(2)
+
+    # Get location via ip-api.com (100% dynamic lookup)
     city = "Polotsk"
-    routed_via = ""
     try:
         req = urllib.request.Request("http://ip-api.com/json", headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=2) as response:
+        with urllib.request.urlopen(req, timeout=3) as response:
             geo = json.loads(response.read().decode())
-            if geo.get("status") == "success":
-                detected_city = geo.get("city", "")
-                country = geo.get("countryCode", "")
-                # Overcome Beltelecom regional NAT routing to Vitebsk/Minsk
-                if country == "BY" and detected_city in ["Minsk", "Vitebsk", "Viciebsk", "Mogilev", "Homyel", "Brest", "Grodno"]:
-                    city = "Polotsk"
-                    routed_via = f" (routed via {detected_city})"
-                else:
-                    city = detected_city if detected_city else "Polotsk"
+            if geo.get("status") == "success" and geo.get("city"):
+                city = geo["city"]
     except Exception:
         pass
 
+    # URL-encode city name to prevent control character crashes (e.g., "New York" -> "New%20York")
+    encoded_city = urllib.parse.quote(city)
+
     # Fetch rich weather data from wttr.in in JSON format
     try:
-        url = f"https://wttr.in/{city}?format=j1"
+        url = f"https://wttr.in/{encoded_city}?format=j1"
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=3) as response:
             data = json.loads(response.read().decode())
@@ -62,7 +68,7 @@
         text = f"{emoji}{temp}°C"
 
         # Build multi-line tooltip with location verification and 3-day forecast
-        tooltip = f"📍 Location: {city}{routed_via}\n"
+        tooltip = f"📍 Location: {city}\n"
         tooltip += f"🌡️ Temp: {temp}°C (Feels like {curr['FeelsLikeC']}°C)\n"
         tooltip += f"✨ Condition: {desc}\n"
         tooltip += f"☀️ UV Index: {uv}\n"
@@ -154,7 +160,7 @@ in {
     # Force absolute monitor centering for the center module box
     "fixed-center" = true;
 
-    # Balanced left-side modules grouping (weather removed from left)
+    # Balanced left-side modules grouping
     modules-left = [
       "custom/launcher"
       "hyprland/workspaces"
@@ -168,7 +174,7 @@ in {
       "clock"
     ];
 
-    # Balanced right-side modules grouping (directory removed, weather added)
+    # Balanced right-side modules grouping
     modules-right = [
       "custom/cava"
       "custom/weather"
