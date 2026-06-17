@@ -1,24 +1,23 @@
-{ ... }:
-let custom = {
-  font = "JetBrainsMono Nerd Font";
-  font_size = "18px";
-  font_weight = "bold";
-  text_color = "#FBF1C7";
-  background_0 = "#1D2021";
-  background_1 = "#282828";
-  border_color = "#928374";
-  red = "#CC241D";
-  green = "#98971A";
-  yellow = "#FABD2F";
-  blue = "#458588";
-  magenta = "#B16286";
-  cyant = "#689D6A";
-  orange = "#D65D0E";
-  opacity = "1";
-  indicator_height = "2px";
-};
-in 
-{
+{...}: let
+  custom = {
+    font = "JetBrainsMono Nerd Font";
+    font_size = "18px";
+    font_weight = "bold";
+    text_color = "#FBF1C7";
+    background_0 = "#1D2021";
+    background_1 = "#282828";
+    border_color = "#928374";
+    red = "#CC241D";
+    green = "#98971A";
+    yellow = "#FABD2F";
+    blue = "#458588";
+    magenta = "#B16286";
+    cyant = "#689D6A";
+    orange = "#D65D0E";
+    opacity = "1";
+    indicator_height = "2px";
+  };
+in {
   programs.waybar.style = with custom; ''
     * {
       border: none;
@@ -35,13 +34,18 @@ in
       background: #282828;
     }
 
-    tooltip {
+    /* Multi-layered GTK3 tooltip configuration to guarantee perfect font and background visibility */
+    tooltip, .tooltip, #tooltip {
+      background-color: ${background_1};
       background: ${background_1};
       border: 1px solid ${border_color};
+      border-radius: 4px;
     }
-    tooltip label {
-      margin: 5px;
+    tooltip label, .tooltip label, #tooltip label {
       color: ${text_color};
+      font-family: ${font};
+      font-size: 14px;
+      padding: 4px;
     }
 
     #workspaces {
@@ -51,7 +55,8 @@ in
       color: ${yellow};
       padding-left:  5px;
       padding-right: 5px;
-      margin-right: 10px;
+      margin-left: 4px;
+      margin-right: 4px;
       border-bottom: ${indicator_height} solid ${background_0};
     }
     #workspaces button.empty {
@@ -62,13 +67,19 @@ in
       border-bottom: ${indicator_height} solid ${yellow};
     }
 
+    /* Fixed center margins to isolate the clock and prevent jumping on window changes */
     #clock {
       color: ${text_color};
-      border-bottom: ${indicator_height} solid ${background_0};
+      border-bottom: ${indicator_height} solid ${border_color};
+      margin-left: 40px;
+      margin-right: 40px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     #tray {
       margin-left: 10px;
+      margin-right: 10px;
       color: ${text_color};
     }
     #tray menu {
@@ -80,10 +91,22 @@ in
       padding: 1px;
     }
 
-    #pulseaudio, #network, #cpu, #memory, #disk, #battery, #custom-notification {
-      padding-left: 5px;
-      padding-right: 5px;
-      margin-right: 10px;
+    /* Symmetric margins and paddings for all standard widgets to ensure perfectly even spacing */
+    #pulseaudio,
+    #cpu,
+    #memory,
+    #disk,
+    #battery,
+    #custom-notification,
+    #language,
+    #custom-weather,
+    #custom-cava,
+    #custom-directory,
+    #window {
+      padding-left: 6px;
+      padding-right: 6px;
+      margin-left: 6px;
+      margin-right: 6px;
       color: ${text_color};
     }
 
@@ -98,20 +121,13 @@ in
     }
 
     #pulseaudio {
-      margin-left: 15px;
       border-bottom: ${indicator_height} solid ${blue};
-    }
-    #network {
-      border-bottom: ${indicator_height} solid ${magenta};
     }
     #battery {
       border-bottom: ${indicator_height} solid ${yellow};
     }
 
     #custom-notification {
-      margin-left: 15px;
-      padding-right: 2px;
-      margin-right: 5px;
       border-bottom: ${indicator_height} solid ${red};
     }
 
@@ -122,6 +138,37 @@ in
       margin-left: 15px;
       padding-right: 10px;
       border-bottom: ${indicator_height} solid ${background_0};
+    }
+
+    #window {
+      font-weight: bold;
+      color: ${text_color};
+    }
+    window#waybar.empty #window {
+      color: ${border_color};
+    }
+
+    /* Capitalized language module with locked minimum width */
+    #language {
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-left: 4px;
+      margin-right: 4px;
+      border-bottom: ${indicator_height} solid ${magenta};
+    }
+
+
+    #custom-weather {
+      border-bottom: ${indicator_height} solid ${blue};
+    }
+
+    #custom-cava {
+      font-family: "monospace";
+    }
+
+    #custom-directory {
+      color: ${orange};
+      font-weight: bold;
     }
   '';
 }
