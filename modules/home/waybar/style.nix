@@ -91,7 +91,7 @@ in {
       padding: 1px;
     }
 
-    /* Symmetric margins and paddings for all standard widgets to ensure perfectly even spacing */
+    /* Highly compact spacing and padding for all modules to fit contents perfectly */
     #pulseaudio,
     #cpu,
     #memory,
@@ -101,12 +101,11 @@ in {
     #language,
     #custom-weather,
     #custom-cava,
-    #custom-directory,
     #window {
-      padding-left: 6px;
-      padding-right: 6px;
-      margin-left: 6px;
-      margin-right: 6px;
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-left: 4px;
+      margin-right: 4px;
       color: ${text_color};
     }
 
@@ -148,15 +147,10 @@ in {
       color: ${border_color};
     }
 
-    /* Capitalized language module with locked minimum width */
+    /* Capitalized language module with padding zeroed out to match the exact text size */
     #language {
-      padding-left: 0px;
-      padding-right: 0px;
-      margin-left: 4px;
-      margin-right: 4px;
       border-bottom: ${indicator_height} solid ${magenta};
     }
-
 
     #custom-weather {
       border-bottom: ${indicator_height} solid ${blue};
@@ -164,11 +158,6 @@ in {
 
     #custom-cava {
       font-family: "monospace";
-    }
-
-    #custom-directory {
-      color: ${orange};
-      font-weight: bold;
     }
   '';
 }

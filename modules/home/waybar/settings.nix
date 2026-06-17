@@ -3,27 +3,6 @@
   pkgs,
   ...
 }: let
-  # Get the current working directory from the active Kitty window
-  dirScript = pkgs.writeShellScript "waybar-dir" ''
-    active_win=$(hyprctl activewindow -j 2>/dev/null)
-    if [ -n "$active_win" ]; then
-      class=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.class')
-      pid=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.pid')
-      if [ "$class" = "kitty" ] && [ -n "$pid" ] && [ "$pid" != "null" ]; then
-        shell_pid=$(${pkgs.procps}/bin/pgrep -P "$pid" -x "bash|sh|zsh|fish" | head -n1)
-        [ -z "$shell_pid" ] && shell_pid=$(${pkgs.procps}/bin/pgrep -P "$pid" | head -n1)
-        if [ -n "$shell_pid" ]; then
-          cwd=$(readlink -f "/proc/$shell_pid/cwd" 2>/dev/null)
-          if [ -n "$cwd" ]; then
-            echo "  ''${cwd/#$HOME/\~}"
-            exit 0
-          fi
-        fi
-      fi
-    fi
-    echo ""
-  '';
-
   # Self-contained Python script to fetch, override Beltelecom NAT routing, and output JSON weather
   weatherScript = pkgs.writeScript "waybar-weather" ''
     #!${pkgs.python3}/bin/python3
@@ -175,11 +154,10 @@ in {
     # Force absolute monitor centering for the center module box
     "fixed-center" = true;
 
-    # Balanced left-side modules grouping
+    # Balanced left-side modules grouping (weather removed from left)
     modules-left = [
       "custom/launcher"
       "hyprland/workspaces"
-      "custom/weather"
       "hyprland/language"
       "tray"
       "hyprland/window"
@@ -190,10 +168,10 @@ in {
       "clock"
     ];
 
-    # Balanced right-side modules grouping
+    # Balanced right-side modules grouping (directory removed, weather added)
     modules-right = [
-      "custom/directory"
       "custom/cava"
+      "custom/weather"
       "cpu"
       "memory"
       (
@@ -231,13 +209,6 @@ in {
       "format-en" = "US";
       "format-us" = "US";
       "format-ru" = "RU";
-    };
-
-    "custom/directory" = {
-      "format" = "{}";
-      "interval" = 1;
-      "exec" = "${dirScript}";
-      "tooltip" = false;
     };
 
     "custom/weather" = {
