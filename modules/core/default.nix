@@ -1,5 +1,11 @@
-{ inputs, nixpkgs, self, username, host, ...}:
 {
+  inputs,
+  nixpkgs,
+  self,
+  username,
+  host,
+  ...
+}: {
   imports = [
     ./bootloader.nix
     ./hardware.nix
@@ -15,5 +21,6 @@
     ./user.nix
     ./wayland.nix
     ./virtualization.nix
+    ./windows/shared.nix
   ];
 }
