@@ -12,10 +12,11 @@
       "uid=1000"
       "gid=100"
       "dmask=0022"
-      "fmask=0133"
+      "fmask=0022"
       "windows_names"
       "exec"
       "nofail"
+      "comment=x-gvfs-show"
     ];
   };
 }
