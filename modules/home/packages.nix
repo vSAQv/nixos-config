@@ -59,6 +59,7 @@
       #sl
       tty-clock # cli clock
       docker-compose
+      sops
 
       ## GUI Apps
       bleachbit # cache cleaner
