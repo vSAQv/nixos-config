@@ -23,6 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvf.url = "github:NotAShelf/nvf";
 
     #spicetify-nix = {
@@ -37,6 +42,7 @@
     nixpkgs,
     self,
     chaotic,
+    sops-nix,
     ...
   } @ inputs: let
     username = "cif";
@@ -50,7 +56,10 @@
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [./hosts/desktop];
+        modules = [
+          ./hosts/desktop
+          sops-nix.nixosModules.sops
+        ];
         specialArgs = {
           host = "desktop";
           inherit self inputs username;
@@ -58,7 +67,10 @@
       };
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [./hosts/laptop];
+        modules = [
+          ./hosts/laptop
+          sops-nix.nixosModules.sops
+        ];
         specialArgs = {
           host = "laptop";
           inherit self inputs username;
@@ -66,7 +78,10 @@
       };
       vm = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [./hosts/vm];
+        modules = [
+          ./hosts/vm
+          sops-nix.nixosModules.sops
+        ];
         specialArgs = {
           host = "vm";
           inherit self inputs username;
