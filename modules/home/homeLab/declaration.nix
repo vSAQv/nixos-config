@@ -69,7 +69,6 @@ in {
     "d ${configDir}/pelican-db 0700 cif users - -"
     "d ${configDir}/pelican-wings 0755 cif users - -"
     "d ${configDir}/pelican-wings/config 0755 cif users - -"
-    "d ${configDir}/prowlarr 0755 cif users - -"
     "d ${configDir}/qbittorrent 0755 cif users - -"
     "d ${configDir}/radarr 0755 cif users - -"
     "d ${configDir}/slskd 0755 cif users - -"
@@ -77,6 +76,8 @@ in {
     "d ${configDir}/suwayomi 0755 cif users - -"
     "d ${configDir}/syncthing 0755 cif users - -"
     "d ${configDir}/tailscale-proxy-exit 0755 cif users - -"
+    "d ${configDir}/jobFinder 0755 cif users - -"
+    "d ${configDir}/jobFinder/resumes 0755 cif users - -"
 
     # --- Read-Only Symlinks (L+) ---
     # These files become immutable. Modifying them at runtime will fail.
@@ -89,7 +90,6 @@ in {
     "C ${configDir}/qbittorrent/qBittorrent.conf - - - - ${./configs/qBittorrent.conf}"
     "C ${configDir}/sonarr/config.xml - - - - ${./configs/sonarr-config.xml}"
     "C ${configDir}/radarr/config.xml - - - - ${./configs/radarr-config.xml}"
-    "C ${configDir}/prowlarr/config.xml - - - - ${./configs/prowlarr-config.xml}"
     "C ${configDir}/beets/config.yaml - - - - ${./configs/beets-config.yaml}"
   ];
 }
