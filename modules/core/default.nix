@@ -22,5 +22,6 @@
     ./wayland.nix
     ./virtualization.nix
     ./windows/shared.nix
+    ./homeLab
   ];
 }

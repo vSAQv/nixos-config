@@ -36,6 +36,5 @@
     ./waybar # status bar
     ./xdg-mimes.nix # xdg config
     ./zsh # shell
-    # ./homeLab
   ];
 }
