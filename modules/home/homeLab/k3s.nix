@@ -47,6 +47,9 @@
       PL_DB_PASS: "${config.sops.placeholder."PL_DB_PASS"}"
       PL_DB_ROOT_PASS: "${config.sops.placeholder."PL_DB_ROOT_PASS"}"
       PL_APP_KEY: "${config.sops.placeholder."PL_APP_KEY"}"
+      OPENROUTER_API_KEY: "${config.sops.placeholder."OPENROUTER_API_KEY"}"
+      TELEGRAM_BOT_TOKEN: "${config.sops.placeholder."TELEGRAM_BOT_TOKEN"}"
+      TELEGRAM_CHAT_ID: "${config.sops.placeholder."TELEGRAM_CHAT_ID"}"
   '';
 
   # --- Zero-Touch Provisioning (Auto-Deploy Manifests) ---
@@ -85,8 +88,7 @@
       spec:
         project: default
         source:
-          # IMPORTANT: Replace with your actual K8s GitOps repository URL
-          repoURL: 'git@github.com:USER/k8s-gitops.git'
+          repoURL: 'git@github.com:vSAQv/homelab-k8s.git'
           path: apps
           targetRevision: HEAD
           directory:
