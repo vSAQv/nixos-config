@@ -1,8 +1,11 @@
 keys:
   - &host_key age1q5a9ckmdn8m7u3ap4k7kngkwjxd6up860z9hjdsmkas2mvg6f9gqfuvvdh
+  - &admin_key age1dqwhjetvqjk3y2z3lf5xl82kj7f35pye2kc594w5q2q7xxrsngnsjzs3lk
 
 creation_rules:
   - path_regex: modules/home/homeLab/secrets\.yaml$
     key_groups:
       - age:
           - *host_key
+          - *admin_key
+
