@@ -56,9 +56,7 @@ in {
     "d ${configDir}/bookshelf-ebooks 0755 cif users - -"
     "d ${configDir}/filebrowser 0755 cif users - -"
     "d ${configDir}/gamevault 0755 cif users - -"
-    "d ${configDir}/gamevault-db 0700 cif users - -"
     "d ${configDir}/immich-cache 0755 cif users - -"
-    "d ${configDir}/immich-db 0700 cif users - -"
     "d ${configDir}/jackett 0755 cif users - -"
     "d ${configDir}/jellyfin 0755 cif users - -"
     "d ${configDir}/jellyseerr 0755 cif users - -"
@@ -66,7 +64,6 @@ in {
     "d ${configDir}/litellm 0755 cif users - -"
     "d ${configDir}/navidrome 0755 cif users - -"
     "d ${configDir}/pelican 0755 cif users - -"
-    "d ${configDir}/pelican-db 0700 cif users - -"
     "d ${configDir}/pelican-wings 0755 cif users - -"
     "d ${configDir}/pelican-wings/config 0755 cif users - -"
     "d ${configDir}/qbittorrent 0755 cif users - -"
@@ -76,20 +73,20 @@ in {
     "d ${configDir}/suwayomi 0755 cif users - -"
     "d ${configDir}/syncthing 0755 cif users - -"
     "d ${configDir}/tailscale-proxy-exit 0755 cif users - -"
-    "d ${configDir}/jobFinder 0755 cif users - -"
-    "d ${configDir}/jobFinder/resumes 0755 cif users - -"
+    "d ${configDir}/job-finder 0755 cif users - -"
+    "d ${configDir}/job-finder/resumes 0755 cif users - -"
 
     # --- Read-Only Symlinks (L+) ---
     # These files become immutable. Modifying them at runtime will fail.
-    "L+ ${configDir}/litellm/config.yaml - - - - ${./configs/litellm-config.yaml}"
-    "L+ ${configDir}/tailscale-proxy-exit/proxy-entrypoint.sh - - - - ${./configs/proxy-entrypoint.sh}"
-    "L+ ${configDir}/beets/beets.sh - - - - ${./configs/beets.sh}"
+    # "L+ ${configDir}/litellm/config.yaml - - - - ${./configs/litellm-config.yaml}"
+    # "L+ ${configDir}/tailscale-proxy-exit/proxy-entrypoint.sh - - - - ${./configs/proxy-entrypoint.sh}"
+    # "L+ ${configDir}/beets/beets.sh - - - - ${./configs/beets.sh}"
 
     # --- Writable Templates (C) ---
     # These files are copied only if they do not exist, allowing runtime modifications.
-    "C ${configDir}/qbittorrent/qBittorrent.conf - - - - ${./configs/qBittorrent.conf}"
-    "C ${configDir}/sonarr/config.xml - - - - ${./configs/sonarr-config.xml}"
-    "C ${configDir}/radarr/config.xml - - - - ${./configs/radarr-config.xml}"
-    "C ${configDir}/beets/config.yaml - - - - ${./configs/beets-config.yaml}"
+    # "C ${configDir}/qbittorrent/qBittorrent.conf - - - - ${./configs/qBittorrent.conf}"
+    # "C ${configDir}/sonarr/config.xml - - - - ${./configs/sonarr-config.xml}"
+    # "C ${configDir}/radarr/config.xml - - - - ${./configs/radarr-config.xml}"
+    # "C ${configDir}/beets/config.yaml - - - - ${./configs/beets-config.yaml}"
   ];
 }

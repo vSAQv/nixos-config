@@ -10,6 +10,7 @@
     role = "server";
     extraFlags = toString [
       "--disable traefik"
+      "--write-kubeconfig-mode 644"
     ];
   };
 
@@ -17,6 +18,101 @@
     argocd
     k3s
   ];
+
+  sops.secrets = {
+    "TZ" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "GEMINI_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "PROTON_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "SPOTIFY_ID" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "SPOTIFY_SECRET" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "LASTFM_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "LASTFM_SECRET" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "SL_SL_USERNAME" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "SL_SL_PASSWORD" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "SL_USERNAME" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "SL_PASSWORD" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "TS_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "PROXY_FULL_AUTH" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "IMMICH_DB_PASSWORD" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "GV_DB_PASS" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "JWT_SECRET_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "RAWG_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "PL_DB_PASS" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "PL_DB_ROOT_PASS" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "PL_APP_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "OPENROUTER_API_KEY" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "TELEGRAM_BOT_TOKEN" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "TELEGRAM_CHAT_ID" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+  };
 
   # --- Generate Kubernetes Secret from SOPS ---
   sops.templates."homelab-secrets.yaml".content = ''
@@ -88,7 +184,7 @@
       spec:
         project: default
         source:
-          repoURL: 'git@github.com:vSAQv/homelab-k8s.git'
+          repoURL: 'https://github.com/vSAQv/homelab-k8s.git'
           path: apps
           targetRevision: HEAD
           directory:
