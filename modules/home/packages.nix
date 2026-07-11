@@ -51,6 +51,8 @@
       aichat # ai throuhg terminal
       repomix # file compresser for ai
       htop # nerfed btop
+      ddgr
+      aider-chat
 
       ## CLI
       #cbonsai # terminal screensaver
