@@ -53,6 +53,7 @@
       htop # nerfed btop
       ddgr
       aider-chat
+      devenv
 
       ## CLI
       #cbonsai # terminal screensaver
