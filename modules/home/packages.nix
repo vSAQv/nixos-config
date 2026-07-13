@@ -48,7 +48,6 @@
       yt-dlp-light # youtube video downloader
       xdg-utils # bunch of scripts
       #xxd # 16 bit decoder
-      aichat # ai throuhg terminal
       repomix # file compresser for ai
       htop # nerfed btop
       ddgr
