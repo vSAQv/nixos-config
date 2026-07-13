@@ -51,7 +51,6 @@
       repomix # file compresser for ai
       htop # nerfed btop
       ddgr
-      aider-chat
       devenv
 
       ## CLI
