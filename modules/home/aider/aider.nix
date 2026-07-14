@@ -5,7 +5,7 @@
 }: {
   home.packages = [
     (pkgs.writeShellScriptBin "aider" ''
-      SECRET_PATH="/run/secrets/openrouter_api_key"
+      SECRET_PATH="/run/secrets/OPENROUTER_API_KEY"
 
       if [ -f "$SECRET_PATH" ]; then
         export OPENROUTER_API_KEY=$(cat "$SECRET_PATH")
@@ -47,6 +47,6 @@
       "*.sh": "shellcheck"
 
     read:
-      - "${config.home.homeDirectory}/.aider.rules.md"
+      - "/home/cif/nixos-config/modules/home/aider/.aider.rules.md"
   '';
 }

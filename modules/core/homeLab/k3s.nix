@@ -103,6 +103,7 @@
     "OPENROUTER_API_KEY" = {
       format = "yaml";
       sopsFile = ./secrets.yaml;
+      owner = "cif";
     };
     "TELEGRAM_BOT_TOKEN" = {
       format = "yaml";
