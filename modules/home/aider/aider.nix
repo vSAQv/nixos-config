@@ -30,13 +30,6 @@
     map-tokens: 2048
     aiderignore: ".aiderignore"
 
-    # --- Aliases ---
-    aliases:
-      free: openrouter/nvidia/nemotron-3-ultra:free
-      deep: openrouter/deepseek/deepseek-v4-pro
-      luna: openrouter/openai/gpt-5.6-luna
-      sol: openrouter/openai/gpt-5.6-sol
-
     # --- Git ---
     auto-commits: false
     commit-prompt: "Generate a concise, conventional commit message for these changes."
