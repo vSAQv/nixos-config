@@ -11,6 +11,11 @@
     extraFlags = toString [
       "--disable traefik"
       "--write-kubeconfig-mode 644"
+
+      "--kube-controller-manager-arg=terminated-pod-gc-threshold=100"
+
+      "--kubelet-arg=eviction-hard=imagefs.available<5%,nodefs.available<5%"
+      "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=10%,nodefs.available=10%"
     ];
   };
 
@@ -148,6 +153,16 @@
       TELEGRAM_BOT_TOKEN: "${config.sops.placeholder."TELEGRAM_BOT_TOKEN"}"
       TELEGRAM_CHAT_ID: "${config.sops.placeholder."TELEGRAM_CHAT_ID"}"
   '';
+
+  # --- Systemd Unit Overrides and Bootstrapping ---
+
+  # Override behavior of the main k3s service to prevent stuck pods on shutdown
+  systemd.services.k3s = {
+    serviceConfig = {
+      # Give pods up to 60 seconds to stop gracefully on shutdown before SIGKILL
+      TimeoutStopSec = "60s";
+    };
+  };
 
   # --- Zero-Touch Provisioning (Auto-Deploy Manifests) ---
   systemd.services.k3s-bootstrap = {
