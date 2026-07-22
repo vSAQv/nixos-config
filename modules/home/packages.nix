@@ -75,7 +75,7 @@
       zenity # for bash scripts
       unetbootin # creation of bootloader's
       gparted # partitioning
-      antigravity # IDE with free claude and latest gemini
+      # antigravity # IDE with free claude and latest gemini
       ayugram-desktop # better telegram
       ludusavi # for homelab steam
       #lmms # audio stuff
