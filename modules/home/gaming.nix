@@ -5,7 +5,6 @@
   ...
 }: {
   nixpkgs.overlays = [
-    # ... ваши существующие оверлеи Home Manager ...
     (final: prev: {
       openldap = prev.openldap.overrideAttrs (old: {
         doCheck = false;
