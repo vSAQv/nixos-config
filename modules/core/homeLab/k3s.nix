@@ -3,7 +3,9 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  isSSD = true;
+in {
   # --- Declarative K3s Server Configuration ---
   services.k3s = {
     enable = true;
@@ -16,6 +18,17 @@
 
       "--kubelet-arg=eviction-hard=imagefs.available<5%,nodefs.available<5%"
       "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=10%,nodefs.available=10%"
+
+      "--kubelet-arg=registry-qps=0"
+
+      (
+        if isSSD
+        then "--kubelet-arg=serialize-image-pulls=false"
+        else "--kubelet-arg=serialize-image-pulls=true"
+      )
+
+      "--kubelet-arg=image-gc-high-threshold=90"
+      "--kubelet-arg=image-gc-low-threshold=80"
     ];
   };
 
