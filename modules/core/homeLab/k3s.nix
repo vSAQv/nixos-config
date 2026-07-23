@@ -131,6 +131,14 @@ in {
       format = "yaml";
       sopsFile = ./secrets.yaml;
     };
+    "OO_ROOT_USER_EMAIL" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "OO_ROOT_USER_PASSWORD" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
   };
 
   # --- Generate Kubernetes Secret from SOPS ---
@@ -165,6 +173,8 @@ in {
       OPENROUTER_API_KEY: "${config.sops.placeholder."OPENROUTER_API_KEY"}"
       TELEGRAM_BOT_TOKEN: "${config.sops.placeholder."TELEGRAM_BOT_TOKEN"}"
       TELEGRAM_CHAT_ID: "${config.sops.placeholder."TELEGRAM_CHAT_ID"}"
+      OO_ROOT_USER_EMAIL: "${config.sops.placeholder."OO_ROOT_USER_EMAIL"}"
+      OO_ROOT_USER_PASSWORD: "${config.sops.placeholder."OO_ROOT_USER_PASSWORD"}"
   '';
 
   # --- Systemd Unit Overrides and Bootstrapping ---

@@ -75,6 +75,8 @@ in {
     "d ${configDir}/tailscale-proxy-exit 0755 cif users - -"
     "d ${configDir}/job-finder 0755 cif users - -"
     "d ${configDir}/job-finder/resumes 0755 cif users - -"
+    "d ${configDir}/openobserve 0755 cif users - -"
+    "d ${configDir}/openobserve/data 0775 cif users - -"
 
     # --- Read-Only Symlinks (L+) ---
     # These files become immutable. Modifying them at runtime will fail.
