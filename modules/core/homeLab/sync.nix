@@ -35,7 +35,7 @@ in {
         "${configDir}/navidrome/navidrome.db"
         "${configDir}/slskd/slskd.db"
         "${configDir}/kavita/kavita.db"
-        "${configDir}/jobFinder/applied.db"
+        "${configDir}/job-finder/applied.db"
       ];
 
       passwordFile = config.sops.secrets."restic_password".path;
