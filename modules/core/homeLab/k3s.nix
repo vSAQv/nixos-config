@@ -139,6 +139,14 @@ in {
       format = "yaml";
       sopsFile = ./secrets.yaml;
     };
+    "NTFY_AUTH_USERS" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "NTFY_AUTH_ACCESS" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
   };
 
   # --- Generate Kubernetes Secret from SOPS ---
@@ -175,6 +183,8 @@ in {
       TELEGRAM_CHAT_ID: "${config.sops.placeholder."TELEGRAM_CHAT_ID"}"
       OO_ROOT_USER_EMAIL: "${config.sops.placeholder."OO_ROOT_USER_EMAIL"}"
       OO_ROOT_USER_PASSWORD: "${config.sops.placeholder."OO_ROOT_USER_PASSWORD"}"
+      NTFY_AUTH_USERS: "${config.sops.placeholder."NTFY_AUTH_USERS"}"
+      NTFY_AUTH_ACCESS: "${config.sops.placeholder."NTFY_AUTH_ACCESS"}"
   '';
 
   # --- Systemd Unit Overrides and Bootstrapping ---
