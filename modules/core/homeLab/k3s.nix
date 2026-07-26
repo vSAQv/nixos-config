@@ -210,7 +210,7 @@ in {
         runtime_root = ""
         runtime_type = "io.containerd.runc.v2"
       [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
-        BinaryName = "/run/current-system/sw/bin/nvidia-container-runtime"
+        BinaryName = "${pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime"
         SystemdCgroup = true
       EOF
 
