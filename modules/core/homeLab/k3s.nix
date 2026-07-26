@@ -199,13 +199,26 @@ in {
     wantedBy = ["multi-user.target"];
     serviceConfig.Type = "oneshot";
     script = ''
-      mkdir -p /var/lib/rancher/k3s/server/manifests
+       mkdir -p /var/lib/rancher/k3s/server/manifests
+
+      mkdir -p /var/lib/rancher/k3s/agent/etc/containerd
+      cat <<'EOF' > /var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
+      {{ template "base" . }}
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia]
+        privileged_without_host_devices = false
+        runtime_engine = ""
+        runtime_root = ""
+        runtime_type = "io.containerd.runc.v2"
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
+        BinaryName = "/run/current-system/sw/bin/nvidia-container-runtime"
+        SystemdCgroup = true
+      EOF
 
       # Provide generated secrets to the K3s auto-deploy controller
       cp ${config.sops.templates."homelab-secrets.yaml".path} /var/lib/rancher/k3s/server/manifests/homelab-secrets.yaml
 
       # Declarative ArgoCD Helm Chart installation
-      cat <<EOF > /var/lib/rancher/k3s/server/manifests/argocd.yaml
+      cat <<'EOF' > /var/lib/rancher/k3s/server/manifests/argocd.yaml
       apiVersion: helm.cattle.io/v1
       kind: HelmChart
       metadata:
@@ -219,7 +232,7 @@ in {
       EOF
 
       # Declarative GitOps Root Application mapping
-      cat <<EOF > /var/lib/rancher/k3s/server/manifests/root-app.yaml
+      cat <<'EOF' > /var/lib/rancher/k3s/server/manifests/root-app.yaml
       apiVersion: argoproj.io/v1alpha1
       kind: Application
       metadata:
