@@ -35,6 +35,7 @@ in {
   environment.systemPackages = with pkgs; [
     argocd
     k3s
+    nvidia-container-toolkit
   ];
 
   sops.secrets = {
