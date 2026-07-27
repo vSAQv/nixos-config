@@ -187,6 +187,7 @@ in {
 
   # Override behavior of the main k3s service to prevent stuck pods on shutdown
   systemd.services.k3s = {
+    path = [pkgs.nvidia-container-toolkit];
     serviceConfig = {
       # Give pods up to 60 seconds to stop gracefully on shutdown before SIGKILL
       TimeoutStopSec = "60s";
@@ -211,7 +212,7 @@ in {
         runtime_root = ""
         runtime_type = "io.containerd.runc.v2"
       [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
-        BinaryName = "/run/current-system/sw/bin/nvidia-container-runtime"
+        BinaryName = "${pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime"
         SystemdCgroup = true
       EOF
 
