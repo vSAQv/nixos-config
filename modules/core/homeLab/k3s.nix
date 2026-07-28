@@ -6,6 +6,9 @@
 }: let
   isSSD = true;
 in {
+  virtualisation.containerd.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
+
   # --- Declarative K3s Server Configuration ---
   services.k3s = {
     enable = true;
@@ -13,6 +16,8 @@ in {
     extraFlags = toString [
       "--disable traefik"
       "--write-kubeconfig-mode 644"
+
+      "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
 
       "--kube-controller-manager-arg=terminated-pod-gc-threshold=100"
 
@@ -187,7 +192,8 @@ in {
 
   # Override behavior of the main k3s service to prevent stuck pods on shutdown
   systemd.services.k3s = {
-    path = [pkgs.nvidia-container-toolkit];
+    requires = ["containerd.service"];
+    after = ["containerd.service"];
     serviceConfig = {
       # Give pods up to 60 seconds to stop gracefully on shutdown before SIGKILL
       TimeoutStopSec = "60s";
@@ -202,19 +208,6 @@ in {
     serviceConfig.Type = "oneshot";
     script = ''
        mkdir -p /var/lib/rancher/k3s/server/manifests
-
-      mkdir -p /var/lib/rancher/k3s/agent/etc/containerd
-      cat <<'EOF' > /var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
-      {{ template "base" . }}
-      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia]
-        privileged_without_host_devices = false
-        runtime_engine = ""
-        runtime_root = ""
-        runtime_type = "io.containerd.runc.v2"
-      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
-        BinaryName = "${pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime"
-        SystemdCgroup = true
-      EOF
 
       # Provide generated secrets to the K3s auto-deploy controller
       cp ${config.sops.templates."homelab-secrets.yaml".path} /var/lib/rancher/k3s/server/manifests/homelab-secrets.yaml
