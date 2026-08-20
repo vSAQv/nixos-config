@@ -25,11 +25,13 @@
         80
         443
         59010
+        53317
         59011
       ];
       allowedUDPPorts = [
         41641
         59010
+        53317
         59011
       ];
       allowedTCPPortRanges = [
