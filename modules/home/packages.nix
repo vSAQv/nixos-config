@@ -52,6 +52,7 @@
       htop # nerfed btop
       ddgr
       devenv
+      localsend
 
       ## CLI
       #cbonsai # terminal screensaver
