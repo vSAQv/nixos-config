@@ -6,7 +6,19 @@
 }: let
   isSSD = true;
 in {
-  virtualisation.containerd.enable = true;
+  virtualisation.containerd = {
+    enable = true;
+
+    settings = {
+      plugins."io.containerd.cri.v1.runtime".cni = {
+        bin_dirs = [
+          "/var/lib/rancher/k3s/data/current/bin"
+        ];
+        conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d";
+      };
+    };
+  };
+
   hardware.nvidia-container-toolkit.enable = true;
 
   # --- Declarative K3s Server Configuration ---
