@@ -6,6 +6,7 @@
     dbus.enable = true;
     udisks2.enable = true;
     fstrim.enable = true;
+    usbmuxd.enable = true;
     #zapret = {
     #  enable = true;
     #  params = [
