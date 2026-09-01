@@ -37,5 +37,6 @@
     ./xdg-mimes.nix # xdg config
     ./zsh # shell
     #./aider/aider.nix
+    ./storage-optimization.nix
   ];
 }
