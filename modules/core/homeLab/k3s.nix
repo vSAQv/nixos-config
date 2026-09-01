@@ -1,10 +1,14 @@
 # /home/cif/nixos-config/modules/home/homeLab/k3s.nix
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
   isSSD = true;
+
+  nvidiaContainerToolkitTools =
+    lib.getOutput "tools" config.hardware.nvidia-container-toolkit.package;
 in {
   virtualisation.containerd = {
     enable = true;
@@ -16,8 +20,28 @@ in {
         ];
         conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d";
       };
+
+      # NixOS still generates a v2/legacy CRI section, which containerd 2.x
+      # migrates and therefore continues to affect the effective CNI config.
+      plugins."io.containerd.grpc.v1.cri".cni = {
+        bin_dir = "/var/lib/rancher/k3s/data/current/bin";
+        conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d";
+      };
+
+      plugins."io.containerd.cri.v1.runtime".containerd.runtimes.nvidia = {
+        runtime_type = "io.containerd.runc.v2";
+
+        options = {
+          BinaryName = "${nvidiaContainerToolkitTools}/bin/nvidia-container-runtime";
+          SystemdCgroup = true;
+        };
+      };
     };
   };
+
+  systemd.services.containerd.path = [
+    nvidiaContainerToolkitTools
+  ];
 
   hardware.nvidia-container-toolkit.enable = true;
 
