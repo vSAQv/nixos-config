@@ -87,9 +87,9 @@
       #ansel # photo edit
 
       #gimp #photoshop alternative
-      reaper # fl studio
-      audacity #simple audio record
-      davinci-resolve
+      #reaper # fl studio
+      #audacity #simple audio record
+      #davinci-resolve
       obs-studio
 
       # C / C++
