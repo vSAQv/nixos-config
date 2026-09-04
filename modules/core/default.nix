@@ -24,5 +24,6 @@
     ./windows/shared.nix
     ./homeLab
     ./battery-shutdown.nix
+    ./storage-optimization.nix
   ];
 }
