@@ -23,5 +23,6 @@
     ./virtualization.nix
     ./windows/shared.nix
     ./homeLab
+    ./battery-shutdown.nix
   ];
 }
