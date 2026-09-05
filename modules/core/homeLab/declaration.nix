@@ -28,7 +28,6 @@ in {
     "d ${dataDir}/media/manga/thumbnails 0755 cif users - -"
     "d ${dataDir}/media/movies 0755 cif users - -"
     "d ${dataDir}/media/tv 0755 cif users - -"
-    "d ${dataDir}/media/wikipedia 0755 cif users - -"
     "d ${dataDir}/music 0755 cif users - -"
 
     # --- Immich Storage Hierarchy ---
