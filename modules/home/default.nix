@@ -36,6 +36,7 @@
     ./waybar # status bar
     ./xdg-mimes.nix # xdg config
     ./zsh # shell
+    ./opencode
     #./aider/aider.nix
   ];
 }
