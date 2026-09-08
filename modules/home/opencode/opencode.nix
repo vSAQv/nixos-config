@@ -26,6 +26,7 @@ let
 
     export OPENROUTER_API_KEY="$(${pkgs.coreutils}/bin/cat "$secret_path")"
     export OPENCODE_CONFIG_DIR="${aiWorkspace}/config"
+    export AI_WORKSPACE_PYTHON="${pkgs.python3}/bin/python3"
 
     exec ${pkgs.opencode}/bin/opencode "$@"
   '';
