@@ -2,6 +2,19 @@
 
 let
   aiWorkspace = "/home/cif/Projects/ai-workspace";
+  workspaceWrapper = pkgs.writeShellScriptBin "workspace" ''
+    set -euo pipefail
+    export PYTHONPATH="${aiWorkspace}''${PYTHONPATH:+:''${PYTHONPATH}}"
+    exec ${pkgs.python3}/bin/python3 -m ai_workspace "$@"
+  '';
+  workspaceValidateWrapper = pkgs.writeShellScriptBin "workspace-validate" ''
+    exec ${workspaceWrapper}/bin/workspace validate "$@"
+  '';
+  workspaceTestWrapper = pkgs.writeShellScriptBin "workspace-test" ''
+    set -euo pipefail
+    export PYTHONPATH="${aiWorkspace}''${PYTHONPATH:+:''${PYTHONPATH}}"
+    exec ${pkgs.python3}/bin/python3 -m unittest discover -s ${aiWorkspace}/tests -v "$@"
+  '';
   opencodeWrapper = pkgs.writeShellScriptBin "opencode" ''
     set -euo pipefail
 
@@ -20,6 +33,9 @@ in
 {
   home.packages = [
     opencodeWrapper
+    workspaceWrapper
+    workspaceValidateWrapper
+    workspaceTestWrapper
   ];
 
   systemd.user.services.opencode-web = {
