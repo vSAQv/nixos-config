@@ -100,6 +100,22 @@ in {
       format = "yaml";
       sopsFile = ./secrets.yaml;
     };
+    "LISTENBRAINZ_TOKEN" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "LISTENBRAINZ_USER" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "NAVIDROME_USER" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
+    "NAVIDROME_PASS" = {
+      format = "yaml";
+      sopsFile = ./secrets.yaml;
+    };
     "LASTFM_KEY" = {
       format = "yaml";
       sopsFile = ./secrets.yaml;
@@ -201,6 +217,10 @@ in {
       PROTON_KEY: "${config.sops.placeholder."PROTON_KEY"}"
       SPOTIFY_ID: "${config.sops.placeholder."SPOTIFY_ID"}"
       SPOTIFY_SECRET: "${config.sops.placeholder."SPOTIFY_SECRET"}"
+      LISTENBRAINZ_TOKEN: "${config.sops.placeholder."LISTENBRAINZ_TOKEN"}"
+      LISTENBRAINZ_USER: "${config.sops.placeholder."LISTENBRAINZ_USER"}"
+      NAVIDROME_USER: "${config.sops.placeholder."NAVIDROME_USER"}"
+      NAVIDROME_PASS: "${config.sops.placeholder."NAVIDROME_PASS"}"
       LASTFM_KEY: "${config.sops.placeholder."LASTFM_KEY"}"
       LASTFM_SECRET: "${config.sops.placeholder."LASTFM_SECRET"}"
       SL_SL_USERNAME: "${config.sops.placeholder."SL_SL_USERNAME"}"
